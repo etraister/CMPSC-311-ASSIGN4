@@ -39,6 +39,34 @@ Flag	initialized = NO;
 
 // Functions
 
+uint64_t extract_cart_opcode(CartXferRegister resp, CartRegisters reg_field) {
+
+	CartXferRegister reg_seg;
+	reg_seg = resp;
+
+	// Create ability to extract any relevant part of OPCODE sent to CART for checks
+	switch (reg_field) {
+	case(CART_REG_KY1) :
+		reg_seg = (reg_seg >> 56);
+		break;
+	case(CART_REG_KY2) :
+		reg_seg = ((reg_seg >> 48) & 0xFF);   // logical right shift 48 bits and logical AND with ... 1111 1111
+		break;
+	case(CART_REG_RT1) :
+		reg_seg = ((reg_seg >> 47) & 0x01);   // logical right shift 47 bits and logical AND with ... 0001
+		break;
+	case(CART_REG_CT1) :
+		reg_seg = ((reg_seg >> 31) & 0xFFFF); // logical right shift 31 bits and logical AND with ... 1111 1111 1111 1111
+		break;
+	case(CART_REG_FM1) :
+		reg_seg = ((reg_seg >> 15) & 0xFFFF); // logical right shift 15 bits and logical AND with ... 1111 1111 1111 1111
+		break;
+	default:                                        // unused: CART_REG_MAXVAL, access to unused/reserved bits
+		logMessage(LOG_ERROR_LEVEL, "extract_card_opcode error: wrong reg_field passed for response");
+	}
+	return (reg_seg);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Function     : client_cart_bus_request
@@ -56,7 +84,7 @@ Flag	initialized = NO;
 CartXferRegister client_cart_bus_request(CartXferRegister reg, void *buf) {
 
 	// Local Variables
-	int					socket_fd;
+	int					socket_fd = client_socket;
 	uint8_t				request;
 
 	CartXferRegister	value = 0;
