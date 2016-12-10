@@ -10,14 +10,18 @@
 
 // Include Files
 #include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
 // Project Include Files
+#include "cart_driver.h"
 #include "cart_network.h"
 #include "cart_controller.h"
 #include "cmpsc311_log.h"
+#include "cmpsc311_util.h"
 
 //  Global data
 int client_socket = -1;
