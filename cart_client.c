@@ -43,7 +43,7 @@ Flag	initialized = NO;
 
 // Functions
 
-uint64_t extract_cart_opcode(CartXferRegister resp, CartRegisters reg_field) {
+uint64_t extract_opcode(CartXferRegister resp, CartRegisters reg_field) {
 
 	CartXferRegister reg_seg;
 	reg_seg = resp;
@@ -100,7 +100,7 @@ CartXferRegister client_cart_bus_request(CartXferRegister reg, void *buf) {
 
 
 	// Obtain the network request
-	request = extract_cart_opcode(reg, CART_REG_KY1);
+	request = extract_opcode(reg, CART_REG_KY1);
 
 	// Check if socket is open
 	if (socket_fd != -1) {
