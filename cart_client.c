@@ -35,7 +35,7 @@ typedef enum Flag {
 } Flag;
 
 // Global Variables
-Flag	initialized == NO;
+Flag	initialized = NO;
 
 // Functions
 
@@ -64,7 +64,7 @@ CartXferRegister client_cart_bus_request(CartXferRegister reg, void *buf) {
 
 	struct	sockaddr_in caddr;
 	char *ip = CART_DEFAULT_IP;
-	cart_network_port = CARD_DEFAULT_PORT;
+	cart_network_port = CART_DEFAULT_PORT;
 
 
 	// Obtain the network request
