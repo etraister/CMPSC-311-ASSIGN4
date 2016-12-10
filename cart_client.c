@@ -28,7 +28,7 @@ int client_socket = -1;
 int                cart_network_shutdown = 0;   // Flag indicating shutdown
 unsigned char     *cart_network_address = NULL; // Address of CART server
 unsigned short     cart_network_port = 0;       // Port of CART serve
-unsigned long      CartControllerLLevel = 0; // Controller log level (global)
+unsigned long      CartControllerLLevel = LOG_INFO_LEVEL; // Controller log level (global)
 unsigned long      CartDriverLLevel = 0;     // Driver log level (global)
 unsigned long      CartSimulatorLLevel = 0;  // Driver log level (global)
 
